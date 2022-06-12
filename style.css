@@ -1,14 +1,26 @@
-* {
 
+
+ 
+ * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
+
+
+
+
+
 
 body {
     background-image: url("1.jpeg");
+    
     color: rgb(198, 25, 25);
     font-family: system-ui Arial, Helvetica, sans-serif;
- background-repeat: no-repeat; background-size: cover;
+ background-repeat: no-repeat;
+ background-size: cover
+
+ 
 
 }
 
