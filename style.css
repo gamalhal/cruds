@@ -13,11 +13,14 @@
 
 
 body {
-    background-image: url("1.jpeg");
+    background-image: url("/3.jpeg");
     
-    color: rgb(198, 25, 25);
+    color: rgb(218, 184, 35);
     font-family: system-ui Arial, Helvetica, sans-serif;
- 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
 
  
 

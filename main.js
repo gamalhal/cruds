@@ -206,7 +206,6 @@ function searchData(value) {
   document.getElementById("tbody").innerHTML = table;
 }
 
-// in there a prb;em in search rewatch a code
-//حته الكاتوجرى  البحث بالكاتوجرى
+// in there a prb;em in search rewatch a cod
 
 // clean data
