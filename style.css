@@ -1,129 +1,479 @@
+/* 
+  ========================================
+  نظام إدارة المنتجات - Product Management System
+  ملف التصميم - CSS Stylesheet
+  ========================================
+  هذا الملف يحتوي على جميع أنماط التصميم للتطبيق
+*/
+
+/* 
+  ========================================
+  إعادة تعيين الأنماط الافتراضية - Reset and Base Styles
+  ========================================
+  إزالة الهوامش والحشو الافتراضية من جميع العناصر
+*/
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin: 0;          /* إزالة الهوامش الخارجية */
+    padding: 0;         /* إزالة الحشو الداخلي */
+    box-sizing: border-box; /* حساب العرض والارتفاع مع الحشو والحدود */
 }
 
-
-
-
-
-
+/* 
+  ========================================
+  أنماط الجسم الرئيسي - Body Styles
+  ========================================
+  تطبيق الخلفية والخط الأساسي للصفحة
+*/
 body {
-    background-image: url("img/3.jpeg");
+    /* خلفية متدرجة جميلة من الأزرق إلى البنفسجي */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     
-    color: rgb(218, 184, 35);
-    font-family: system-ui Arial, Helvetica, sans-serif;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-
-
- 
-
+    /* لون النص الأساسي */
+    color: #333;
+    
+    /* خط النظام مع خطوط احتياطية */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+    /* الحد الأدنى لارتفاع الصفحة */
+    min-height: 100vh;
+    
+    /* حشو علوي وسفلي للصفحة */
+    padding: 20px 0;
 }
 
+/* 
+  ========================================
+  أنماط الحاوية - Container Styles
+  ========================================
+  تنسيق الحاوية الرئيسية للتطبيق
+*/
 .crud {
-    width: 80%;
-    margin: auto;
-
+    max-width: 1200px;      /* الحد الأقصى للعرض */
+    margin: 0 auto;         /* توسيط الحاوية */
+    padding: 0 15px;        /* حشو جانبي */
 }
 
+/* 
+  ========================================
+  أنماط العنوان - Header Styles
+  ========================================
+  تنسيق قسم العنوان الرئيسي
+*/
 .head {
-
-    text-align: center;
-    text-transform: uppercase;
-    margin: 10px 0;
-
-
+    text-align: center;     /* توسيط المحتوى */
+    margin-bottom: 30px;    /* هامش سفلي */
+    padding: 40px 0;        /* حشو علوي وسفلي */
 }
 
-input {
-    width: 100%;
-    height: 30px;
-    outline:none;    
-    border: 1px solid rgb(233, 15, 15);
-    background:  rgb(140, 204, 22);
-    margin: 4px 0;
-    border-radius: 4px;
-    padding: 4px;
-    color: rgb(13, 63, 224);
-    font-size: 16px;
-    font-weight: bold;
-    
+/* محتوى العنوان مع خلفية شفافة وتأثيرات */
+.header-content {
+    background: rgba(255, 255, 255, 0.95);  /* خلفية بيضاء شفافة */
+    border-radius: 20px;                     /* زوايا مدورة */
+    padding: 40px;                           /* حشو داخلي */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* ظل خفيف */
+    -webkit-backdrop-filter: blur(10px);     /* تأثير ضبابي للخلفية */
+    backdrop-filter: blur(10px);             /* تأثير ضبابي للخلفية */
 }
 
-
-
-
-
-input :focus {
-    background: rgb(208, 15, 15);
-    transform: scale(1,1);
+/* العنوان الرئيسي */
+.header-content h1 {
+    color: #2c3e50;                         /* لون النص */
+    font-size: 2.5rem;                      /* حجم الخط */
+    font-weight: 700;                       /* سمك الخط */
+    margin-bottom: 10px;                    /* هامش سفلي */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* ظل للنص */
 }
 
-
-.price input {
-    width: 20%;
-
+/* العنوان الفرعي */
+.header-content .subtitle {
+    color: #7f8c8d;                         /* لون رمادي فاتح */
+    font-size: 1.1rem;                      /* حجم الخط */
+    font-weight: 300;                       /* خط رفيع */
 }
 
-#total{
-
-background: #e34e09;
-padding: 4px 2px;
-border-radius: 5px;
-
-
-
+/* أيقونة العنوان */
+.header-content i {
+    color: #3498db;                         /* لون أزرق */
+    margin-bottom: 20px;                    /* هامش سفلي */
 }
 
-#total ::before {
-    content: "Total: ";
-   
+/* 
+  ========================================
+  أنماط البطاقات - Card Styles
+  ========================================
+  تنسيق جميع البطاقات في التطبيق
+*/
+.card {
+    border: none;                           /* إزالة الحدود الافتراضية */
+    border-radius: 15px;                    /* زوايا مدورة */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* ظل خفيف */
+    margin-bottom: 25px;                    /* هامش سفلي */
+    overflow: hidden;                       /* إخفاء المحتوى الزائد */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* انتقال سلس */
 }
 
+/* تأثير عند تمرير المؤشر على البطاقة */
+.card:hover {
+    transform: translateY(-5px);            /* رفع البطاقة لأعلى */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); /* ظل أقوى */
+}
 
+/* بطاقة إدخال البيانات - خلفية بيضاء */
+.input-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+}
 
-button {
-    width: 100%;
-    height: 30px;
-    outline: none;
+/* بطاقة البحث - خلفية زرقاء فاتحة */
+.search-card {
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+}
+
+/* بطاقة الجدول - خلفية رمادية فاتحة */
+.table-card {
+    background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+}
+
+/* 
+  ========================================
+  أنماط النماذج - Form Styles
+  ========================================
+  تنسيق حقول الإدخال والتسميات
+*/
+.form-label {
+    font-weight: 600;                       /* خط سميك */
+    color: #2c3e50;                         /* لون النص */
+    margin-bottom: 8px;                     /* هامش سفلي */
+    display: flex;                          /* عرض مرن */
+    align-items: center;                    /* توسيط عمودي */
+}
+
+/* أيقونات التسميات */
+.form-label i {
+    color: #3498db;                         /* لون أزرق */
+    margin-left: 8px;                       /* هامش يساري */
+}
+
+/* حقول الإدخال */
+.form-control {
+    border: 2px solid #e9ecef;              /* حدود رمادية فاتحة */
+    border-radius: 10px;                    /* زوايا مدورة */
+    padding: 12px 15px;                     /* حشو داخلي */
+    font-size: 14px;                        /* حجم الخط */
+    transition: all 0.3s ease;              /* انتقال سلس */
+    background: rgba(255, 255, 255, 0.9);   /* خلفية شفافة */
+}
+
+/* تأثير عند التركيز على حقل الإدخال */
+.form-control:focus {
+    border-color: #3498db;                  /* لون الحدود عند التركيز */
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25); /* ظل أزرق */
+    background: #ffffff;                    /* خلفية بيضاء */
+    transform: translateY(-2px);            /* رفع الحقل قليلاً */
+}
+
+/* نص النصيحة في حقول الإدخال */
+.form-control::placeholder {
+    color: #95a5a6;                         /* لون رمادي */
+    font-style: italic;                     /* خط مائل */
+}
+
+/* 
+  ========================================
+  عرض المجموع - Total Display
+  ========================================
+  تنسيق مربع عرض المجموع المحسوب
+*/
+.total-display {
+    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); /* خلفية خضراء */
+    color: white;                           /* لون النص أبيض */
+    padding: 12px 20px;                     /* حشو داخلي */
+    border-radius: 10px;                    /* زوايا مدورة */
+    text-align: center;                     /* توسيط النص */
+    font-weight: bold;                      /* خط سميك */
+    font-size: 18px;                        /* حجم الخط */
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3); /* ظل أخضر */
+    min-height: 48px;                       /* الحد الأدنى للارتفاع */
+    display: flex;                          /* عرض مرن */
+    align-items: center;                    /* توسيط عمودي */
+    justify-content: center;                /* توسيط أفقي */
+}
+
+/* 
+  ========================================
+  أنماط الأزرار - Button Styles
+  ========================================
+  تنسيق جميع الأزرار في التطبيق
+*/
+.btn {
+    border-radius: 10px;                    /* زوايا مدورة */
+    padding: 12px 25px;                     /* حشو داخلي */
+    font-weight: 600;                       /* خط سميك */
+    text-transform: uppercase;              /* أحرف كبيرة */
+    letter-spacing: 0.5px;                  /* مسافة بين الحروف */
+    transition: all 0.3s ease;              /* انتقال سلس */
+    border: none;                           /* إزالة الحدود */
+    position: relative;                     /* موضع نسبي */
+    overflow: hidden;                       /* إخفاء المحتوى الزائد */
+}
+
+/* الزر الأساسي - أزرق */
+.btn-primary {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+/* تأثير عند تمرير المؤشر على الزر الأساسي */
+.btn-primary:hover {
+    background: linear-gradient(135deg, #2980b9 0%, #1f5f8b 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+}
+
+/* الزر الثانوي - رمادي */
+.btn-outline-secondary {
+    border: 2px solid #95a5a6;
+    color: #7f8c8d;
+    background: transparent;
+}
+
+/* تأثير عند تمرير المؤشر على الزر الثانوي */
+.btn-outline-secondary:hover {
+    background: #95a5a6;
+    border-color: #95a5a6;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* الزر الأخضر - للنجاح */
+.btn-success {
+    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+}
+
+/* تأثير عند تمرير المؤشر على الزر الأخضر */
+.btn-success:hover {
+    background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
+}
+
+/* الزر الأحمر - للحذف */
+.btn-danger {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+}
+
+/* تأثير عند تمرير المؤشر على الزر الأحمر */
+.btn-danger:hover {
+    background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+}
+
+/* الزر البرتقالي - للتعديل */
+.btn-warning {
+    background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+}
+
+/* تأثير عند تمرير المؤشر على الزر البرتقالي */
+.btn-warning:hover {
+    background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(243, 156, 18, 0.4);
+}
+
+/* 
+  ========================================
+  أنماط الجدول - Table Styles
+  ========================================
+  تنسيق جدول عرض المنتجات
+*/
+.table {
+    margin-bottom: 0;                       /* إزالة الهامش السفلي */
+}
+
+/* رأس الجدول */
+.table th {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); /* خلفية داكنة */
+    color: white;                           /* لون النص أبيض */
+    font-weight: 600;                       /* خط سميك */
+    text-transform: uppercase;              /* أحرف كبيرة */
+    letter-spacing: 0.5px;                  /* مسافة بين الحروف */
+    border: none;                           /* إزالة الحدود */
+    padding: 15px 10px;                     /* حشو داخلي */
+    text-align: center;                     /* توسيط النص */
+    vertical-align: middle;                 /* توسيط عمودي */
+}
+
+/* أيقونات رأس الجدول */
+.table th i {
+    margin-left: 5px;                       /* هامش يساري */
+    color: #3498db;                         /* لون أزرق */
+}
+
+/* خلايا الجدول */
+.table td {
+    padding: 12px 10px;                     /* حشو داخلي */
+    text-align: center;                     /* توسيط النص */
+    vertical-align: middle;                 /* توسيط عمودي */
+    border-bottom: 1px solid #ecf0f1;       /* حدود سفلية خفيفة */
+    font-weight: 500;                       /* خط متوسط */
+}
+
+/* صفوف الجدول */
+.table tbody tr {
+    transition: all 0.3s ease;              /* انتقال سلس */
+}
+
+/* تأثير عند تمرير المؤشر على صف الجدول */
+.table tbody tr:hover {
+    background: linear-gradient(135deg, #ecf0f1 0%, #bdc3c7 100%);
+    transform: scale(1.01);                 /* تكبير بسيط */
+}
+
+/* 
+  ========================================
+  قسم البحث - Search Section
+  ========================================
+  تنسيق عناصر البحث
+*/
+.input-group-text {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
     border: none;
-    background: #14269c;
-    border-radius: 20px;
-    padding: 4px;
-    color: rgb(168, 195, 13);
-    cursor: pointer;
+    color: white;
+    border-radius: 10px 0 0 10px;           /* زوايا مدورة من اليسار */
 }
 
-button:hover {
-    background: #171aca;
-    letter-spacing: 1px;
+/* 
+  ========================================
+  زر حذف الكل - Delete All Button
+  ========================================
+  تنسيق زر حذف جميع المنتجات
+*/
+#deleteAll .btn {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: white;
+    padding: 15px 30px;                     /* حشو أكبر */
+    font-size: 16px;                        /* حجم خط أكبر */
+    border-radius: 25px;                    /* زوايا مدورة أكثر */
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.3);
 }
 
-.btnsearch{
-    display: flex;
-    justify-content:space-between ;
+/* تأثير عند تمرير المؤشر على زر حذف الكل */
+#deleteAll .btn:hover {
+    background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+    transform: translateY(-3px);            /* رفع أكثر */
+    box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
 }
 
-.btnsearch button{
-    width: 45%;
+/* 
+  ========================================
+  التصميم المتجاوب - Responsive Design
+  ========================================
+  تنسيقات خاصة للشاشات الصغيرة
+*/
+@media (max-width: 768px) {
+    .crud {
+        padding: 0 10px;                    /* تقليل الحشو الجانبي */
+    }
     
+    .header-content {
+        padding: 20px;                      /* تقليل الحشو الداخلي */
+    }
+    
+    .header-content h1 {
+        font-size: 2rem;                    /* تقليل حجم العنوان */
+    }
+    
+    .card-body {
+        padding: 20px;                      /* تقليل حشو البطاقات */
+    }
+    
+    .btn {
+        padding: 10px 20px;                 /* تقليل حشو الأزرار */
+        font-size: 14px;                    /* تقليل حجم الخط */
+    }
+    
+    .table-responsive {
+        font-size: 12px;                    /* تقليل حجم خط الجدول */
+    }
+    
+    .table th,
+    .table td {
+        padding: 8px 5px;                   /* تقليل حشو خلايا الجدول */
+    }
 }
 
-table{
-    width: 100%;
-    text-align: center;
-    margin: 10px 0;
-}
-table  th {
-    text-transform: uppercase;
+/* 
+  ========================================
+  تأثيرات حركية - Animation Classes
+  ========================================
+  تأثيرات بصرية للعناصر
+*/
+.fade-in {
+    animation: fadeIn 0.5s ease-in;         /* تأثير ظهور تدريجي */
 }
 
-table th td {
-    padding: 5px;
+/* تعريف تأثير الظهور التدريجي */
+@keyframes fadeIn {
+    from {
+        opacity: 0;                         /* شفاف تماماً */
+        transform: translateY(20px);        /* مقلوب لأسفل */
+    }
+    to {
+        opacity: 1;                         /* مرئي تماماً */
+        transform: translateY(0);           /* في مكانه الطبيعي */
+    }
 }
-#deleteAll{
-   margin: 20px 0; 
+
+/* 
+  ========================================
+  شريط التمرير المخصص - Custom Scrollbar
+  ========================================
+  تنسيق شريط التمرير ليكون أكثر جمالاً
+*/
+::-webkit-scrollbar {
+    width: 8px;                             /* عرض شريط التمرير */
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;                    /* خلفية المسار */
+    border-radius: 10px;                    /* زوايا مدورة */
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    border-radius: 10px;                    /* زوايا مدورة */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #2980b9 0%, #1f5f8b 100%);
+}
+
+/* 
+  ========================================
+  تأثير التحميل - Loading Animation
+  ========================================
+  دائرة دوارة للتحميل
+*/
+.loading {
+    display: inline-block;                  /* عرض سطري */
+    width: 20px;                            /* العرض */
+    height: 20px;                           /* الارتفاع */
+    border: 3px solid rgba(255, 255, 255, 0.3); /* حدود شفافة */
+    border-radius: 50%;                     /* دائرة */
+    border-top-color: #fff;                 /* لون الجزء العلوي */
+    animation: spin 1s ease-in-out infinite; /* دوران مستمر */
+}
+
+/* تعريف تأثير الدوران */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);          /* دوران كامل */
+    }
 }

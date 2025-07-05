@@ -1,179 +1,348 @@
-let title = document.getElementById("title");
-let price = document.getElementById("price");
-let taxes = document.getElementById("taxes");
-let ads = document.getElementById("ads");
-let discount = document.getElementById("discount");
-let total = document.getElementById("total");
-let count = document.getElementById("count");
-let category = document.getElementById("category");
-let submit = document.getElementById("submit");
-let mood = "create";
-let tmp;
-console.log(title, price, taxes, ads, discount, total, count, category, submit);
+/*
+  ========================================
+  نظام إدارة المنتجات - Product Management System
+  ملف الوظائف - JavaScript File
+  ========================================
+  هذا الملف يحتوي على جميع الوظائف والمنطق البرمجي للتطبيق
+*/
 
+// 
+// ========================================
+// العناصر الأساسية - DOM Elements
+// ========================================
+// الحصول على جميع العناصر المطلوبة من الصفحة
+//
+
+// عناصر النموذج - Form Elements
+let title = document.getElementById("title");           // حقل اسم المنتج
+let price = document.getElementById("price");           // حقل السعر
+let taxes = document.getElementById("taxes");           // حقل الضرائب
+let ads = document.getElementById("ads");               // حقل الإعلانات
+let discount = document.getElementById("discount");     // حقل الخصم
+let total = document.getElementById("total");           // عرض المجموع
+let count = document.getElementById("count");           // حقل الكمية
+let category = document.getElementById("category");     // حقل الفئة
+let submit = document.getElementById("submit");         // زر الإرسال
+
+// متغيرات الحالة - State Variables
+let mood = "create";    // حالة النموذج: إنشاء أو تحديث
+let tmp;                // مؤشر مؤقت لتخزين فهرس العنصر المراد تحديثه
+
+// تهيئة عرض المجموع
+total.innerHTML = "0";
+
+// 
+// ========================================
+// دالة حساب المجموع - Calculate Total Function
+// ========================================
+// تحسب المجموع النهائي للمنتج تلقائياً
+//
 function getTotal() {
+  // التحقق من وجود قيمة في حقل السعر
   if (price.value != "") {
+    // حساب المجموع: السعر + الضرائب + الإعلانات - الخصم
     let result = +price.value + +ads.value + +taxes.value - +discount.value;
-
-    total.innerHTML = result;
-    total.style.background = "green";
+    
+    // عرض النتيجة مع رقمين عشريين
+    total.innerHTML = result.toFixed(2);
+    
+    // تغيير لون الخلفية إلى الأخضر للنجاح
+    total.style.background = "linear-gradient(135deg, #2ecc71 0%, #27ae60 100%)";
   } else {
-    total.innerHTML = "";
-    total.style.background = "red";
+    // إذا لم يكن هناك سعر، عرض صفر وخلفية حمراء
+    total.innerHTML = "0";
+    total.style.background = "linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)";
   }
 }
 
-//creaat product
+// 
+// ========================================
+// مصفوفة البيانات - Data Array
+// ========================================
+// تخزين جميع المنتجات في مصفوفة
+//
 let datapro;
+
+// محاولة استرجاع البيانات المحفوظة من LocalStorage
 if (localStorage.product != null) {
+  // تحويل النص JSON إلى مصفوفة
   datapro = JSON.parse(localStorage.product);
 } else {
+  // إنشاء مصفوفة فارغة إذا لم تكن هناك بيانات محفوظة
   datapro = [];
 }
-submit.onclick = function () {
-  let newpro = {
-    title: title.value,
 
-    //.lowercase()
-    price: price.value,
-    taxes: taxes.value,
-    ads: ads.value,
-    discount: discount.value,
-    total: total.innerHTML,
-    category: category.value,
-    //.lowercase()
-    count: count.value,
+// 
+// ========================================
+// معالج حدث زر الإرسال - Submit Button Event Handler
+// ========================================
+// يتم تنفيذها عند الضغط على زر إنشاء/تحديث المنتج
+//
+submit.onclick = function () {
+  // إنشاء كائن المنتج الجديد مع تنظيف النصوص
+  let newpro = {
+    title: title.value.trim(),        // اسم المنتج مع إزالة المسافات الزائدة
+    price: price.value,               // السعر
+    taxes: taxes.value,               // الضرائب
+    ads: ads.value,                   // الإعلانات
+    discount: discount.value,         // الخصم
+    total: total.innerHTML,           // المجموع المحسوب
+    category: category.value.trim(),  // الفئة مع إزالة المسافات الزائدة
+    count: count.value,               // الكمية
   };
-   if(title.value != '' && price.value != '' && taxes.value != '' && ads.value != '' && discount.value != ''&&
-    newpro.count <= 100 ){
-  if (mood === "create") {
-    if (newpro.count > 1) {
-      for (let i = 0; i < newpro.count; i++) {
+
+  // التحقق من صحة البيانات - Validation
+  if (title.value.trim() != '' && price.value != '' && taxes.value != '' && 
+      ads.value != '' && discount.value != '' && newpro.count <= 100) {
+    
+    // التحقق من حالة النموذج
+    if (mood === "create") {
+      // حالة الإنشاء - إضافة منتج جديد
+      if (newpro.count > 1) {
+        // إذا كانت الكمية أكبر من 1، أضف عدة نسخ
+        for (let i = 0; i < newpro.count; i++) {
+          datapro.push(newpro);
+        }
+      } else {
+        // إضافة منتج واحد فقط
         datapro.push(newpro);
       }
+      
+      // مسح النموذج بعد الإضافة
+      clearData();
+      
+      // عرض رسالة نجاح
+      showSuccessMessage("تم إضافة المنتج بنجاح!");
+      
     } else {
-      datapro.push(newpro);
+      // حالة التحديث - تحديث منتج موجود
+      datapro[tmp] = newpro;
+      
+      // إعادة تعيين النموذج لحالة الإنشاء
+      mood = "create";
+      submit.innerHTML = '<i class="fas fa-plus me-2"></i>إنشاء منتج';
+      count.style.display = "block";
+      
+      // عرض رسالة نجاح
+      showSuccessMessage("تم تحديث المنتج بنجاح!");
     }
-    clearData();
-  }
-  } 
-  
-  
-  else {
-    datapro[tmp] = newpro;
-    mood = "create";
-    submit.innerHTML = "create";
-    count.style.display = "block";
-    
-  } 
 
-  localStorage.setItem("product", JSON.stringify(datapro));
-  console.log(datapro);
-  
-  showData();
-  
+    // حفظ البيانات في LocalStorage
+    localStorage.setItem("product", JSON.stringify(datapro));
+    
+    // تحديث عرض الجدول
+    showData();
+    
+  } else {
+    // عرض رسالة خطأ إذا كانت البيانات غير مكتملة
+    showErrorMessage("يرجى ملء جميع الحقول المطلوبة!");
+  }
 };
 
-//clear inputs
+// 
+// ========================================
+// دالة مسح النموذج - Clear Form Function
+// ========================================
+// تمسح جميع حقول النموذج
+//
 function clearData() {
-  title.value = "";
-  price.value = "";
-  taxes.value = "";
-  ads.value = "";
-  discount.value = "";
-  total.innerHTML = "";
-  count.value = "";
-  category.value = "";
+  title.value = "";           // مسح اسم المنتج
+  price.value = "";           // مسح السعر
+  taxes.value = "";           // مسح الضرائب
+  ads.value = "";             // مسح الإعلانات
+  discount.value = "";        // مسح الخصم
+  total.innerHTML = "0";      // إعادة تعيين المجموع
+  count.value = "";           // مسح الكمية
+  category.value = "";        // مسح الفئة
+  
+  // إعادة حساب المجموع لتحديث اللون
+  getTotal();
 }
 
-//read data
+// 
+// ========================================
+// دالة عرض البيانات - Show Data Function
+// ========================================
+// تعرض جميع المنتجات في الجدول
+//
 function showData() {
+  // إعادة حساب المجموع أولاً
   getTotal();
+  
+  // متغير لتخزين HTML الجدول
   let table = "";
+  
+  // مسح محتوى الجدول الحالي
   document.getElementById("tbody").innerHTML = table;
+  
+  // التكرار على جميع المنتجات
   for (let i = 0; i < datapro.length; i++) {
-    table += `<tr>
-            <td>${i+1}</td>
-            <td>${datapro[i].title}</td>
-            <td>${datapro[i].price}</td>
-            <td>${datapro[i].taxes}</td>
-            <td>${datapro[i].ads}</td>
-            <td>${datapro[i].discount}</td>
-            <td>${datapro[i].total}</td>
-            <td>${datapro[i].category}</td>
-            <td><button onclick="updateData(${i})" id="update">update</button></td>
-            <td><button  onclick="deleteData(${i})" id="delete">delete</button></td>  
+    // إنشاء صف جديد مع تأثير ظهور تدريجي
+    table += `<tr class="fade-in">
+            <td>${i + 1}</td>                                    <!-- رقم تسلسلي -->
+            <td>${datapro[i].title}</td>                         <!-- اسم المنتج -->
+            <td>${datapro[i].price}</td>                         <!-- السعر -->
+            <td>${datapro[i].taxes}</td>                         <!-- الضرائب -->
+            <td>${datapro[i].ads}</td>                           <!-- الإعلانات -->
+            <td>${datapro[i].discount}</td>                      <!-- الخصم -->
+            <td>${datapro[i].total}</td>                         <!-- المجموع -->
+            <td>${datapro[i].category}</td>                      <!-- الفئة -->
+            <td><button onclick="updateData(${i})" class="btn btn-warning btn-sm">
+                <i class="fas fa-edit me-1"></i>تعديل
+            </button></td>                                        <!-- زر التعديل -->
+            <td><button onclick="deleteData(${i})" class="btn btn-danger btn-sm">
+                <i class="fas fa-trash me-1"></i>حذف
+            </button></td>                                        <!-- زر الحذف -->
              </tr>`;
-    document.getElementById("tbody").innerHTML = table;
-    let btnDelete = document.getElementById("deleteAll");
-    if (datapro.length > 0) {
-      btnDelete.innerHTML = `<button onclick="deleteAll()">deleteAll(${datapro.length})</button>`;
-    } else {
-      btnDelete.innerHTML = "";
-    }
+  }
+  
+  // إدراج HTML الجدول في الصفحة
+  document.getElementById("tbody").innerHTML = table;
+  
+  // تحديث زر حذف الكل
+  let btnDelete = document.getElementById("deleteAll");
+  if (datapro.length > 0) {
+    // عرض زر حذف الكل مع عدد المنتجات
+    btnDelete.innerHTML = `<button onclick="deleteAll()" class="btn btn-danger">
+        <i class="fas fa-trash-alt me-2"></i>حذف جميع المنتجات (${datapro.length})
+    </button>`;
+  } else {
+    // إخفاء الزر إذا لم تكن هناك منتجات
+    btnDelete.innerHTML = "";
   }
 }
 
-showData();
-
-//delete data
+// 
+// ========================================
+// دالة حذف منتج واحد - Delete Single Product Function
+// ========================================
+// تحذف منتج محدد من المصفوفة
+//
 function deleteData(i) {
-  datapro.splice(i, 1);
-  localStorage.product = JSON.stringify(datapro);
-  showData();
+  // طلب تأكيد الحذف من المستخدم
+  if (confirm("هل أنت متأكد من حذف هذا المنتج؟")) {
+    // حذف المنتج من المصفوفة
+    datapro.splice(i, 1);
+    
+    // حفظ التغييرات في LocalStorage
+    localStorage.product = JSON.stringify(datapro);
+    
+    // تحديث عرض الجدول
+    showData();
+    
+    // عرض رسالة نجاح
+    showSuccessMessage("تم حذف المنتج بنجاح!");
+  }
 }
 
-//deleteAll
+// 
+// ========================================
+// دالة حذف جميع المنتجات - Delete All Products Function
+// ========================================
+// تحذف جميع المنتجات من المصفوفة
+//
 function deleteAll() {
-  localStorage.clear();
-  datapro.splice(0);
-  showData();
+  // طلب تأكيد الحذف من المستخدم
+  if (confirm("هل أنت متأكد من حذف جميع المنتجات؟")) {
+    // مسح LocalStorage بالكامل
+    localStorage.clear();
+    
+    // إفراغ المصفوفة
+    datapro.splice(0);
+    
+    // تحديث عرض الجدول
+    showData();
+    
+    // عرض رسالة نجاح
+    showSuccessMessage("تم حذف جميع المنتجات بنجاح!");
+  }
 }
 
-//update data
+// 
+// ========================================
+// دالة تحديث بيانات المنتج - Update Product Function
+// ========================================
+// تحمل بيانات منتج محدد في النموذج للتعديل
+//
 function updateData(i) {
-  title.value = datapro[i].title;
-  price.value = datapro[i].price;
-  taxes.value = datapro[i].taxes;
-  ads.value = datapro[i].ads;
-  discount.value = datapro[i].discount;
+  // تحميل بيانات المنتج في النموذج
+  title.value = datapro[i].title;           // اسم المنتج
+  price.value = datapro[i].price;           // السعر
+  taxes.value = datapro[i].taxes;           // الضرائب
+  ads.value = datapro[i].ads;               // الإعلانات
+  discount.value = datapro[i].discount;     // الخصم
+  
+  // إعادة حساب المجموع
   getTotal();
+  
+  // إخفاء حقل الكمية في وضع التحديث
   count.style.display = "none";
+  
+  // تحميل الفئة
   category.value = datapro[i].category;
-  submit.innerHTML = "update";
+  
+  // تغيير نص الزر إلى "تحديث"
+  submit.innerHTML = '<i class="fas fa-save me-2"></i>تحديث المنتج';
+  
+  // تغيير حالة النموذج إلى التحديث
   mood = "update";
+  
+  // حفظ فهرس العنصر المراد تحديثه
   tmp = i;
+  
+  // التمرير إلى أعلى الصفحة بسلاسة
   scrollTo({
     top: 0,
     behavior: "smooth",
   });
 }
 
-//search
+// 
+// ========================================
+// وظائف البحث - Search Functions
+// ========================================
+// للبحث في المنتجات بالاسم أو الفئة
+//
+
+// متغير لتخزين نوع البحث الحالي
 let searchMood = "title";
+
+// دالة تغيير نوع البحث
 function getSearchMood(id) {
   let search = document.getElementById("search");
+  
   if (id == "searchTitle") {
+    // البحث بالاسم
     searchMood = "title";
+    search.placeholder = "البحث باسم المنتج...";
   } else {
+    // البحث بالفئة
     searchMood = "category";
+    search.placeholder = "البحث بالفئة...";
   }
-  search.placeholder = "search by " + searchMood;
-  //this a problem here that it do not work focus in inputs search
+  
+  // التركيز على حقل البحث
   search.focus();
+  
+  // مسح قيمة البحث
   search.value = "";
+  
+  // إعادة عرض جميع البيانات
   showData();
 }
 
+// دالة البحث الفوري
 function searchData(value) {
-  console.log(value);
   let table = "";
+  
   if (searchMood == "title") {
+    // البحث بالاسم
     for (let i = 0; i < datapro.length; i++) {
-      if (datapro[i].title.includes(value)) {
-        //.lowercase()
-        table += `<tr>
-            <td>${i}</td>
+      // البحث مع تجاهل حالة الأحرف (كبيرة/صغيرة)
+      if (datapro[i].title.toLowerCase().includes(value.toLowerCase())) {
+        // إنشاء صف للنتيجة
+        table += `<tr class="fade-in">
+            <td>${i + 1}</td>
             <td>${datapro[i].title}</td>
             <td>${datapro[i].price}</td>
             <td>${datapro[i].taxes}</td>
@@ -181,15 +350,23 @@ function searchData(value) {
             <td>${datapro[i].discount}</td>
             <td>${datapro[i].total}</td>
             <td>${datapro[i].category}</td>
-            <td><button onclick="updateData(${i})" id="update">update</button></td>
-            <td><button  onclick="deleteData(${i})" id="delete">delete</button></td>  
+            <td><button onclick="updateData(${i})" class="btn btn-warning btn-sm">
+                <i class="fas fa-edit me-1"></i>تعديل
+            </button></td>
+            <td><button onclick="deleteData(${i})" class="btn btn-danger btn-sm">
+                <i class="fas fa-trash me-1"></i>حذف
+            </button></td>  
                </tr>`;
       }
     }
   } else {
-    if (datapro[i].category.includes(value)) {
-      table += `<tr>
-                <td>${i}</td>
+    // البحث بالفئة
+    for (let i = 0; i < datapro.length; i++) {
+      // البحث مع تجاهل حالة الأحرف (كبيرة/صغيرة)
+      if (datapro[i].category.toLowerCase().includes(value.toLowerCase())) {
+        // إنشاء صف للنتيجة
+        table += `<tr class="fade-in">
+                <td>${i + 1}</td>
                 <td>${datapro[i].title}</td>
                 <td>${datapro[i].price}</td>
                 <td>${datapro[i].taxes}</td>
@@ -197,15 +374,113 @@ function searchData(value) {
                 <td>${datapro[i].discount}</td>
                 <td>${datapro[i].total}</td>
                 <td>${datapro[i].category}</td>
-                <td><button onclick="updateData(${i})" id="update">update</button></td>
-                <td><button  onclick="deleteData(${i})" id="delete">delete</button></td>  
+                <td><button onclick="updateData(${i})" class="btn btn-warning btn-sm">
+                    <i class="fas fa-edit me-1"></i>تعديل
+                </button></td>
+                <td><button onclick="deleteData(${i})" class="btn btn-danger btn-sm">
+                    <i class="fas fa-trash me-1"></i>حذف
+                </button></td>  
                    </tr>`;
+      }
     }
   }
-
+  
+  // عرض نتائج البحث في الجدول
   document.getElementById("tbody").innerHTML = table;
 }
 
-// in there a prb;em in search rewatch a cod
+// 
+// ========================================
+// دوال الرسائل - Message Functions
+// ========================================
+// لعرض رسائل النجاح والخطأ للمستخدم
+//
 
-// clean data
+// دالة عرض رسالة نجاح
+function showSuccessMessage(message) {
+  // إنشاء عنصر التنبيه
+  const alertDiv = document.createElement('div');
+  alertDiv.className = 'alert alert-success alert-dismissible fade show position-fixed';
+  alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+  
+  // محتوى التنبيه
+  alertDiv.innerHTML = `
+    <i class="fas fa-check-circle me-2"></i>
+    ${message}
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  `;
+  
+  // إضافة التنبيه للصفحة
+  document.body.appendChild(alertDiv);
+  
+  // إزالة التنبيه تلقائياً بعد 3 ثوان
+  setTimeout(() => {
+    alertDiv.remove();
+  }, 3000);
+}
+
+// دالة عرض رسالة خطأ
+function showErrorMessage(message) {
+  // إنشاء عنصر التنبيه
+  const alertDiv = document.createElement('div');
+  alertDiv.className = 'alert alert-danger alert-dismissible fade show position-fixed';
+  alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+  
+  // محتوى التنبيه
+  alertDiv.innerHTML = `
+    <i class="fas fa-exclamation-circle me-2"></i>
+    ${message}
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  `;
+  
+  // إضافة التنبيه للصفحة
+  document.body.appendChild(alertDiv);
+  
+  // إزالة التنبيه تلقائياً بعد 3 ثوان
+  setTimeout(() => {
+    alertDiv.remove();
+  }, 3000);
+}
+
+// 
+// ========================================
+// مستمعي الأحداث - Event Listeners
+// ========================================
+// إضافة تفاعلات إضافية لتحسين تجربة المستخدم
+//
+
+// انتظار تحميل الصفحة بالكامل
+document.addEventListener('DOMContentLoaded', function() {
+  
+  // إضافة تأثير التحميل لزر الإرسال
+  submit.addEventListener('click', function() {
+    if (mood === "create") {
+      // عرض تأثير التحميل
+      this.innerHTML = '<span class="loading"></span> جاري الإضافة...';
+      
+      // إعادة النص الأصلي بعد ثانية
+      setTimeout(() => {
+        this.innerHTML = '<i class="fas fa-plus me-2"></i>إنشاء منتج';
+      }, 1000);
+    }
+  });
+  
+  // إضافة دعم مفتاح Enter للإرسال
+  const inputs = document.querySelectorAll('input');
+  inputs.forEach(input => {
+    input.addEventListener('keypress', function(e) {
+      // إذا تم الضغط على مفتاح Enter
+      if (e.key === 'Enter') {
+        submit.click();  // تنفيذ زر الإرسال
+      }
+    });
+  });
+});
+
+// 
+// ========================================
+// تهيئة التطبيق - Application Initialization
+// ========================================
+// عرض البيانات عند تحميل الصفحة
+//
+showData();
