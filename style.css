@@ -25,11 +25,11 @@
   تطبيق الخلفية والخط الأساسي للصفحة
 */
 body {
-    /* خلفية متدرجة جميلة من الأزرق إلى البنفسجي */
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    /* خلفية متدرجة داكنة جميلة */
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #533483 100%);
     
-    /* لون النص الأساسي */
-    color: #333;
+    /* لون النص الأساسي - أبيض فاتح */
+    color: #e8e8e8;
     
     /* خط النظام مع خطوط احتياطية */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -65,28 +65,29 @@ body {
     padding: 40px 0;        /* حشو علوي وسفلي */
 }
 
-/* محتوى العنوان مع خلفية شفافة وتأثيرات */
+/* محتوى العنوان مع خلفية شفافة داكنة وتأثيرات */
 .header-content {
-    background: rgba(255, 255, 255, 0.95);  /* خلفية بيضاء شفافة */
+    background: rgba(26, 26, 46, 0.8);  /* خلفية داكنة شفافة */
     border-radius: 20px;                     /* زوايا مدورة */
     padding: 40px;                           /* حشو داخلي */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* ظل خفيف */
-    -webkit-backdrop-filter: blur(10px);     /* تأثير ضبابي للخلفية */
-    backdrop-filter: blur(10px);             /* تأثير ضبابي للخلفية */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* ظل داكن */
+    -webkit-backdrop-filter: blur(15px);     /* تأثير ضبابي للخلفية */
+    backdrop-filter: blur(15px);             /* تأثير ضبابي للخلفية */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* حدود شفافة */
 }
 
 /* العنوان الرئيسي */
 .header-content h1 {
-    color: #2c3e50;                         /* لون النص */
+    color: #ffffff;                         /* لون النص أبيض */
     font-size: 2.5rem;                      /* حجم الخط */
     font-weight: 700;                       /* سمك الخط */
     margin-bottom: 10px;                    /* هامش سفلي */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* ظل للنص */
+    text-shadow: 0 0 20px rgba(52, 152, 219, 0.5); /* توهج أزرق */
 }
 
 /* العنوان الفرعي */
 .header-content .subtitle {
-    color: #7f8c8d;                         /* لون رمادي فاتح */
+    color: #b8b8b8;                         /* لون رمادي فاتح */
     font-size: 1.1rem;                      /* حجم الخط */
     font-weight: 300;                       /* خط رفيع */
 }
@@ -95,6 +96,7 @@ body {
 .header-content i {
     color: #3498db;                         /* لون أزرق */
     margin-bottom: 20px;                    /* هامش سفلي */
+    text-shadow: 0 0 15px rgba(52, 152, 219, 0.6); /* توهج أزرق */
 }
 
 /* 
@@ -106,31 +108,33 @@ body {
 .card {
     border: none;                           /* إزالة الحدود الافتراضية */
     border-radius: 15px;                    /* زوايا مدورة */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* ظل خفيف */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); /* ظل داكن */
     margin-bottom: 25px;                    /* هامش سفلي */
     overflow: hidden;                       /* إخفاء المحتوى الزائد */
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* انتقال سلس */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* حدود شفافة */
 }
 
 /* تأثير عند تمرير المؤشر على البطاقة */
 .card:hover {
     transform: translateY(-5px);            /* رفع البطاقة لأعلى */
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); /* ظل أقوى */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4); /* ظل أقوى */
+    border-color: rgba(52, 152, 219, 0.3); /* حدود زرقاء عند التمرير */
 }
 
-/* بطاقة إدخال البيانات - خلفية بيضاء */
+/* بطاقة إدخال البيانات - خلفية داكنة */
 .input-card {
-    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.9) 0%, rgba(15, 52, 96, 0.8) 100%);
 }
 
-/* بطاقة البحث - خلفية زرقاء فاتحة */
+/* بطاقة البحث - خلفية زرقاء داكنة */
 .search-card {
-    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    background: linear-gradient(135deg, rgba(15, 52, 96, 0.8) 0%, rgba(83, 52, 131, 0.7) 100%);
 }
 
-/* بطاقة الجدول - خلفية رمادية فاتحة */
+/* بطاقة الجدول - خلفية رمادية داكنة */
 .table-card {
-    background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.8) 0%, rgba(22, 33, 62, 0.7) 100%);
 }
 
 /* 
@@ -141,7 +145,7 @@ body {
 */
 .form-label {
     font-weight: 600;                       /* خط سميك */
-    color: #2c3e50;                         /* لون النص */
+    color: #ffffff;                         /* لون النص أبيض */
     margin-bottom: 8px;                     /* هامش سفلي */
     display: flex;                          /* عرض مرن */
     align-items: center;                    /* توسيط عمودي */
@@ -151,29 +155,31 @@ body {
 .form-label i {
     color: #3498db;                         /* لون أزرق */
     margin-left: 8px;                       /* هامش يساري */
+    text-shadow: 0 0 10px rgba(52, 152, 219, 0.5); /* توهج أزرق */
 }
 
 /* حقول الإدخال */
 .form-control {
-    border: 2px solid #e9ecef;              /* حدود رمادية فاتحة */
+    border: 2px solid rgba(255, 255, 255, 0.2); /* حدود شفافة */
     border-radius: 10px;                    /* زوايا مدورة */
     padding: 12px 15px;                     /* حشو داخلي */
     font-size: 14px;                        /* حجم الخط */
     transition: all 0.3s ease;              /* انتقال سلس */
-    background: rgba(255, 255, 255, 0.9);   /* خلفية شفافة */
+    background: rgba(255, 255, 255, 0.1);   /* خلفية شفافة داكنة */
+    color: #ffffff;                         /* لون النص أبيض */
 }
 
 /* تأثير عند التركيز على حقل الإدخال */
 .form-control:focus {
     border-color: #3498db;                  /* لون الحدود عند التركيز */
     box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25); /* ظل أزرق */
-    background: #ffffff;                    /* خلفية بيضاء */
+    background: rgba(255, 255, 255, 0.15);  /* خلفية أفتح قليلاً */
     transform: translateY(-2px);            /* رفع الحقل قليلاً */
 }
 
 /* نص النصيحة في حقول الإدخال */
 .form-control::placeholder {
-    color: #95a5a6;                         /* لون رمادي */
+    color: #b8b8b8;                         /* لون رمادي فاتح */
     font-style: italic;                     /* خط مائل */
 }
 
@@ -196,6 +202,7 @@ body {
     display: flex;                          /* عرض مرن */
     align-items: center;                    /* توسيط عمودي */
     justify-content: center;                /* توسيط أفقي */
+    text-shadow: 0 0 10px rgba(46, 204, 113, 0.5); /* توهج أخضر */
 }
 
 /* 
@@ -228,21 +235,23 @@ body {
     background: linear-gradient(135deg, #2980b9 0%, #1f5f8b 100%);
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* توهج أبيض */
 }
 
-/* الزر الثانوي - رمادي */
+/* الزر الثانوي - رمادي داكن */
 .btn-outline-secondary {
-    border: 2px solid #95a5a6;
-    color: #7f8c8d;
+    border: 2px solid #6c757d;
+    color: #6c757d;
     background: transparent;
 }
 
 /* تأثير عند تمرير المؤشر على الزر الثانوي */
 .btn-outline-secondary:hover {
-    background: #95a5a6;
-    border-color: #95a5a6;
+    background: #6c757d;
+    border-color: #6c757d;
     color: white;
     transform: translateY(-2px);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* توهج أبيض */
 }
 
 /* الزر الأخضر - للنجاح */
@@ -257,6 +266,7 @@ body {
     background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* توهج أبيض */
 }
 
 /* الزر الأحمر - للحذف */
@@ -271,6 +281,7 @@ body {
     background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* توهج أبيض */
 }
 
 /* الزر البرتقالي - للتعديل */
@@ -285,6 +296,7 @@ body {
     background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(243, 156, 18, 0.4);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* توهج أبيض */
 }
 
 /* 
@@ -295,11 +307,12 @@ body {
 */
 .table {
     margin-bottom: 0;                       /* إزالة الهامش السفلي */
+    color: #e8e8e8;                         /* لون النص فاتح */
 }
 
 /* رأس الجدول */
 .table th {
-    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); /* خلفية داكنة */
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); /* خلفية داكنة */
     color: white;                           /* لون النص أبيض */
     font-weight: 600;                       /* خط سميك */
     text-transform: uppercase;              /* أحرف كبيرة */
@@ -308,12 +321,14 @@ body {
     padding: 15px 10px;                     /* حشو داخلي */
     text-align: center;                     /* توسيط النص */
     vertical-align: middle;                 /* توسيط عمودي */
+    border-bottom: 2px solid rgba(52, 152, 219, 0.3); /* حدود زرقاء */
 }
 
 /* أيقونات رأس الجدول */
 .table th i {
     margin-left: 5px;                       /* هامش يساري */
     color: #3498db;                         /* لون أزرق */
+    text-shadow: 0 0 10px rgba(52, 152, 219, 0.5); /* توهج أزرق */
 }
 
 /* خلايا الجدول */
@@ -321,8 +336,9 @@ body {
     padding: 12px 10px;                     /* حشو داخلي */
     text-align: center;                     /* توسيط النص */
     vertical-align: middle;                 /* توسيط عمودي */
-    border-bottom: 1px solid #ecf0f1;       /* حدود سفلية خفيفة */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* حدود شفافة */
     font-weight: 500;                       /* خط متوسط */
+    color: #e8e8e8;                         /* لون النص فاتح */
 }
 
 /* صفوف الجدول */
@@ -332,8 +348,9 @@ body {
 
 /* تأثير عند تمرير المؤشر على صف الجدول */
 .table tbody tr:hover {
-    background: linear-gradient(135deg, #ecf0f1 0%, #bdc3c7 100%);
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(83, 52, 131, 0.1) 100%);
     transform: scale(1.01);                 /* تكبير بسيط */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* ظل خفيف */
 }
 
 /* 
@@ -347,6 +364,7 @@ body {
     border: none;
     color: white;
     border-radius: 10px 0 0 10px;           /* زوايا مدورة من اليسار */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* توهج أبيض */
 }
 
 /* 
@@ -369,6 +387,7 @@ body {
     background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
     transform: translateY(-3px);            /* رفع أكثر */
     box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.6); /* توهج أقوى */
 }
 
 /* 
@@ -442,7 +461,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;                    /* خلفية المسار */
+    background: rgba(26, 26, 46, 0.5);      /* خلفية داكنة */
     border-radius: 10px;                    /* زوايا مدورة */
 }
 
@@ -476,4 +495,46 @@ body {
     to {
         transform: rotate(360deg);          /* دوران كامل */
     }
+}
+
+/* 
+  ========================================
+  تأثيرات إضافية - Additional Effects
+  ========================================
+  تأثيرات بصرية إضافية للتحسين
+*/
+
+/* تأثير توهج للبطاقات */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.5), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+/* تأثير خلفية متحركة */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+body {
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
 }
